@@ -20,6 +20,7 @@
     "clean": "rm -rf dist .turbo"
   },
   "devDependencies": {
+    "@types/bun": "^1.4.0",
     "tsup": "^8.2.0",
     "typescript": "^5.5.0"
   }
