@@ -33,7 +33,7 @@ export class EventQueue {
     if (this.isFlushing || this.queue.length === 0) return;
 
     if (this.flushTimer) {
-      clearTimeout(this.flushInterval);
+      clearTimeout(this.flushTimer);
       this.flushTimer = null;
     }
 
@@ -49,19 +49,16 @@ export class EventQueue {
     }
   }
 
-  private async processBatch(
-    batch: BluEvent[],
-    attempt: number,
-  ): Promise<void> {
+  private async processBatch(batch: BluEvent[], attempt: number): Promise<void> {
     try {
       await this.transport.sendBatch(batch);
-    } catch (error) {
+    } catch {
       if (attempt < this.maxRetries) {
-        const backoffMs = Math.pow(2, attempt) * 1000; // Exponential backoff: 1s, 2s, 4s
+        const backoffMs = 2 ** attempt * 1000; // Exponential backoff: 1s, 2s, 4s
         await new Promise((resolve) => setTimeout(resolve, backoffMs));
         await this.processBatch(batch, attempt + 1);
       } else {
-        // Fallback: Re-queue at the front to prevent data loss on total failure,
+        // Fallback: Re-queue at the front to prevent data loss on total failure.
         this.queue = [...batch, ...this.queue];
       }
     }

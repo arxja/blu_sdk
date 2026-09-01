@@ -1,10 +1,5 @@
-import type {
-  BluOptions,
-  BluEvent,
-  StorageAdapter,
-  TransportAdapter,
-} from "./types.js";
 import { EventQueue } from "./queue.js";
+import type { BluEvent, BluOptions, StorageAdapter, TransportAdapter } from "./types.js";
 import { generateUUID } from "./utils/uuid.js";
 
 export abstract class BluCore {
@@ -12,11 +7,7 @@ export abstract class BluCore {
   protected storage: StorageAdapter;
   private queue: EventQueue;
 
-  constructor(
-    options: BluOptions,
-    transport: TransportAdapter,
-    storage: StorageAdapter,
-  ) {
+  constructor(options: BluOptions, transport: TransportAdapter, storage: StorageAdapter) {
     this.options = {
       apiHost: "https://api.blu.so",
       batchSize: 20,
