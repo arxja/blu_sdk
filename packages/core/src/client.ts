@@ -9,12 +9,16 @@ export abstract class BluCore {
 
   constructor(options: BluOptions, transport: TransportAdapter, storage: StorageAdapter) {
     this.options = {
-      apiHost: "https://api.blu.so",
-      batchSize: 20,
-      flushInterval: 2000,
-      maxRetries: 3,
-      ...options,
+      apiKey: options.apiKey,
+      apiHost: options.apiHost ?? "https://api.blu.so",
+      batchSize: options.batchSize ?? 20,
+      flushInterval: options.flushInterval ?? 2000,
+      maxRetries: options.maxRetries ?? 3,
     };
+
+    if (!Number.isInteger(this.options.batchSize) || this.options.batchSize <= 0) {
+      throw new TypeError("batchSize must be a positive integer");
+    }
 
     this.storage = storage;
     this.queue = new EventQueue(
