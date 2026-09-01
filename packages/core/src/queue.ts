@@ -4,13 +4,18 @@ export class EventQueue {
   private queue: BluEvent[] = [];
   private flushTimer: ReturnType<typeof setTimeout> | null = null;
   private isFlushing = false;
+  private flushPromise: Promise<void> | null = null;
 
   constructor(
     private transport: TransportAdapter,
     private batchSize: number,
     private flushInterval: number,
     private maxRetries: number,
-  ) {}
+  ) {
+    if (!Number.isInteger(batchSize) || batchSize <= 0) {
+      throw new TypeError("batchSize must be a positive integer");
+    }
+  }
 
   public enqueue(event: BluEvent): void {
     this.queue.push(event);
@@ -30,23 +35,34 @@ export class EventQueue {
   }
 
   public async flush(): Promise<void> {
-    if (this.isFlushing || this.queue.length === 0) return;
+    if (this.flushPromise) {
+      await this.flushPromise;
+      return;
+    }
+
+    if (this.queue.length === 0) {
+      return;
+    }
 
     if (this.flushTimer) {
       clearTimeout(this.flushTimer);
       this.flushTimer = null;
     }
 
-    this.isFlushing = true;
-    const batch = this.queue.splice(0, this.batchSize);
+    this.flushPromise = (async () => {
+      this.isFlushing = true;
+      try {
+        while (this.queue.length > 0) {
+          const batch = this.queue.splice(0, this.batchSize);
+          await this.processBatch(batch, 0);
+        }
+      } finally {
+        this.isFlushing = false;
+        this.flushPromise = null;
+      }
+    })();
 
-    await this.processBatch(batch, 0);
-    this.isFlushing = false;
-
-    // If more events arrived while flushing, trigger again
-    if (this.queue.length > 0) {
-      this.scheduleFlush();
-    }
+    await this.flushPromise;
   }
 
   private async processBatch(batch: BluEvent[], attempt: number): Promise<void> {
