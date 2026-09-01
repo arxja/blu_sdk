@@ -1,0 +1,14 @@
+{
+  "name": "blu-sdk-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "pnpm --filter './packages/**' run build",
+    "dev": "pnpm --filter './packages/**' run dev",
+    "test": "node --test",
+    "lint": "biome check ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "typescript": "^5.5.0"
+  }
+}
