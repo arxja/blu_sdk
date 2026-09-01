@@ -23,6 +23,9 @@ importers:
 
   packages/core:
     devDependencies:
+      '@types/bun':
+        specifier: ^1.4.0
+        version: 1.4.0
       tsup:
         specifier: ^8.2.0
         version: 8.5.1(typescript@5.9.3)
