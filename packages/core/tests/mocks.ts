@@ -1,8 +1,4 @@
-import type {
-  StorageAdapter,
-  TransportAdapter,
-  BluEvent,
-} from "../src/types.js";
+import type { StorageAdapter, TransportAdapter, BluEvent } from "../src/types.js";
 
 export class MockStorage implements StorageAdapter {
   private store = new Map<string, string>();

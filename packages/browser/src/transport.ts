@@ -39,9 +39,7 @@ export class BrowserTransportAdapter implements TransportAdapter {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `[Blu Browser SDK] Delivery failed with status ${response.status}`,
-      );
+      throw new Error(`[Blu Browser SDK] Delivery failed with status ${response.status}`);
     }
   }
 }
