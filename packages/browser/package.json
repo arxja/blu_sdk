@@ -1,5 +1,5 @@
 {
-  "name": "@blu/sdk-core",
+  "name": "@blu/sdk-browser",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,8 +19,10 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist .turbo"
   },
+  "dependencies": {
+    "@blu/sdk-core": "workspace:*"
+  },
   "devDependencies": {
-    "@types/bun": "^1.4.0",
     "tsup": "^8.2.0",
     "typescript": "^5.5.0"
   }
