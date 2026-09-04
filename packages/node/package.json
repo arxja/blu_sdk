@@ -1,0 +1,30 @@
+{
+  "name": "@blu/sdk-node",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "biome check src/",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@blu/sdk-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "tsup": "^8.2.0",
+    "typescript": "^5.5.0"
+  }
+}
