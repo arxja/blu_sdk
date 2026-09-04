@@ -3,13 +3,13 @@
  * and includes configurable timeout controls.
  */
 
-import { BluEvent, TransportAdapter } from "@blu/sdk-core";
+import type { BluEvent, TransportAdapter } from "@blu/sdk-core";
 
 export class NodeTransportAdapter implements TransportAdapter {
   constructor(
     private apiKey: string,
     private apiHost: string,
-    private timeoutMs: number = 5000,
+    private timeoutMs = 5000,
   ) {}
 
   async sendBatch(events: BluEvent[]): Promise<void> {
