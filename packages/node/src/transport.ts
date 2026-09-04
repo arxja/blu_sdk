@@ -29,9 +29,7 @@ export class NodeTransportAdapter implements TransportAdapter {
         signal: controller.signal,
       });
       if (!response.ok) {
-        throw new Error(
-          `[Blu Node SDK] Batch send failed with status ${response.status}`,
-        );
+        throw new Error(`[Blu Node SDK] Batch send failed with status ${response.status}`);
       }
     } finally {
       clearTimeout(timeoutId);

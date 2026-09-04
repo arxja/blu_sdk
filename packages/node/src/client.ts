@@ -50,10 +50,7 @@ export class BluNode extends BluCore {
       try {
         await this.flush();
       } catch (error) {
-        console.error(
-          `[Blu Node SDK] Error flushing events during ${signal}:`,
-          error,
-        );
+        console.error(`[Blu Node SDK] Error flushing events during ${signal}:`, error);
       }
     };
 
