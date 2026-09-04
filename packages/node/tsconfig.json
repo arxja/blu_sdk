@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@blu/sdk-core": ["../core/src/index.ts"]
+    },
+    "types": ["node"]
+  },
+  "include": ["src"]
+}
