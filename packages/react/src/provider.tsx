@@ -3,8 +3,9 @@
  * and retains it using a React useRef.
  */
 
-import React, { useEffect, useRef, type ReactNode } from "react";
 import { Blu, type BluBrowserOptions } from "@blu/sdk-browser";
+import type React from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { BluContext } from "./context";
 
 export interface BluProviderProps {
@@ -12,10 +13,7 @@ export interface BluProviderProps {
   children: ReactNode;
 }
 
-export const BluProvider: React.FC<BluProviderProps> = ({
-  options,
-  children,
-}) => {
+export const BluProvider: React.FC<BluProviderProps> = ({ options, children }) => {
   const clientRef = useRef<Blu | null>(null);
 
   if (!clientRef.current) clientRef.current = new Blu(options);
@@ -28,8 +26,6 @@ export const BluProvider: React.FC<BluProviderProps> = ({
   }, []);
 
   return (
-    <BluContext.Provider value={{ client: clientRef.current }}>
-      {children}
-    </BluContext.Provider>
+    <BluContext.Provider value={{ client: clientRef.current }}>{children}</BluContext.Provider>
   );
 };

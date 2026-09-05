@@ -1,5 +1,5 @@
-import { createContext } from "react";
 import type { Blu } from "@blu/sdk-browser";
+import { createContext } from "react";
 
 export interface BluContextValue {
   client: Blu | null;

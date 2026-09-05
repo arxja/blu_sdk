@@ -2,17 +2,13 @@
  * Idiomatic React hooks to interact with Blu anywhere in the component tree.
  */
 
-import { useContext, useCallback } from "react";
 import type { Blu } from "@blu/sdk-browser";
+import { useCallback, useContext } from "react";
 import { BluContext } from "./context";
 
 export function useBlu(): Blu {
   const { client } = useContext(BluContext);
-  if (!client) {
-    throw new Error(
-      "[Blu React SDK] useBlu must be used within a <BluProvider>",
-    );
-  }
+  if (!client) throw new Error("[Blu React SDK] useBlu must be used within a <BluProvider>");
   return client;
 }
 
