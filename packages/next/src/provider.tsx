@@ -4,8 +4,8 @@
 
 "use client";
 
+import { type BluBrowserOptions, BluProvider } from "@blu/sdk-react";
 import React, { Suspense, type ReactNode } from "react";
-import { BluProvider, type BluBrowserOptions } from "@blu/sdk-react";
 import { BluNextPageTracker } from "./page-tracker.js";
 
 export interface BluNextProviderProps {
@@ -15,11 +15,11 @@ export interface BluNextProviderProps {
 
 export function BluNextProvider({ options, children }: BluNextProviderProps) {
   return (
-    <BluNextProvider options={options}>
+    <BluProvider options={options}>
       <Suspense fallback={null}>
         <BluNextPageTracker />
       </Suspense>
       {children}
-    </BluNextProvider>
+    </BluProvider>
   );
 }

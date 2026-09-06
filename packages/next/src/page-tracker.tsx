@@ -5,9 +5,9 @@
 
 "use client";
 
-import { useEffect, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
 import { useBlu } from "@blu/sdk-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 export function BluNextPageTracker() {
   const pathname = usePathname();
