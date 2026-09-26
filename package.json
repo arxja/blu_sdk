@@ -8,6 +8,7 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "format": "biome format --write .",
+    "test": "bun test",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
