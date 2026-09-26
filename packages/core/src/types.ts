@@ -7,6 +7,7 @@ export interface BluOptions {
 }
 
 export interface BluEvent {
+  eventId: string;
   event: string;
   userId?: string;
   anonymousId?: string;

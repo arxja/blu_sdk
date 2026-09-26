@@ -51,6 +51,7 @@ export abstract class BluCore {
 
   private enqueue(eventName: string, data: Partial<BluEvent>): void {
     const event: BluEvent = {
+      eventId: generateUUID(),
       event: eventName,
       userId: this.storage.get("blu_user_id") || undefined,
       anonymousId: this.storage.get("blu_anonymous_id") || undefined,
