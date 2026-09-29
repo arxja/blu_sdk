@@ -215,7 +215,17 @@ components:
               type: string
               description: Stable machine-readable error code.
               examples:
-                - INVALID_REQUEST
+                - BAD_REQUEST
             message:
               type: string
               description: Human-readable description of the error.
+            details:
+              description: |
+                Optional structured details. Present on 400 validation
+                failures (list of Zod issues) and on errors that carry
+                additional diagnostic context.
+              oneOf:
+                - type: array
+                  items:
+                    type: object
+                - type: object
