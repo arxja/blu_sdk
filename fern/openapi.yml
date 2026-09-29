@@ -39,7 +39,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IngestRequest'
+              $ref: "#/components/schemas/IngestRequest"
             examples:
               purchase:
                 summary: Example event batch
@@ -58,52 +58,52 @@ paths:
                       context:
                         page: "/checkout"
     responses:
-        '200':
-          description: Events were accepted and persisted.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IngestResponse'
-              examples:
-                success:
-                  value:
-                    accepted: 1
-        '400':
-          description: The request or one of its events is invalid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          description: The ingestion API key is missing or invalid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '403':
-          description: The tenant is not currently allowed to ingest data.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '413':
-          description: The request body exceeds the ingestion payload limit.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '429':
-          description: The tenant exceeded an ingestion rate or usage limit.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: An unexpected server error occurred while processing the request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+      "200":
+        description: Events were accepted and persisted.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngestResponse"
+            examples:
+              success:
+                value:
+                  accepted: 1
+      "400":
+        description: The request or one of its events is invalid.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
+      "401":
+        description: The ingestion API key is missing or invalid.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
+      "403":
+        description: The tenant is not currently allowed to ingest data.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
+      "413":
+        description: The request body exceeds the ingestion payload limit.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
+      "429":
+        description: The tenant exceeded an ingestion rate or usage limit.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
+      "500":
+        description: An unexpected server error occurred while processing the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
 
 components:
   securitySchemes:
@@ -136,6 +136,7 @@ components:
         userId:
           type: string
           minLength: 1
+          maxLength: 256
           description: Known customer user identifier.
         anonymousId:
           type: string
@@ -148,7 +149,10 @@ components:
         timestamp:
           type: string
           format: date-time
-          description: ISO 8601 timestamp describing when the event occurred.
+          # Bounds are enforced by the server. Document them here as prose:
+          description: |
+            ISO 8601 timestamp. Must be within 30 days in the past
+            and at most 5 minutes in the future (clock skew tolerance).
         properties:
           type: object
           description: Event-specific properties supplied by the customer application.
@@ -170,7 +174,7 @@ components:
           maxItems: 100
           description: Batch of normalized Blu events. The entire batch is accepted or rejected as a unit in v1.
           items:
-            $ref: '#/components/schemas/BluEvent'
+            $ref: "#/components/schemas/BluEvent"
 
     IngestResponse:
       type: object
