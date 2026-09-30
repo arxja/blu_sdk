@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "bun:test";
 import { EventQueue } from "../src/queue.js";
 import { MockTransport } from "./mocks.js";
 import type { BluEvent } from "../src/types.js";
-import { generateUUID } from "../src/index.js";
+import { generateUUID } from "../src/utils/uuid.js";
 
 describe("EventQueue", () => {
   let transport: MockTransport;
