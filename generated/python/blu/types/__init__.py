@@ -9,11 +9,13 @@ if typing.TYPE_CHECKING:
     from .blu_event import BluEvent
     from .error_response import ErrorResponse
     from .error_response_error import ErrorResponseError
+    from .error_response_error_details import ErrorResponseErrorDetails
     from .ingest_response import IngestResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "BluEvent": ".blu_event",
     "ErrorResponse": ".error_response",
     "ErrorResponseError": ".error_response_error",
+    "ErrorResponseErrorDetails": ".error_response_error_details",
     "IngestResponse": ".ingest_response",
 }
 
@@ -39,4 +41,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["BluEvent", "ErrorResponse", "ErrorResponseError", "IngestResponse"]
+__all__ = ["BluEvent", "ErrorResponse", "ErrorResponseError", "ErrorResponseErrorDetails", "IngestResponse"]

@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .error_response_error_details import ErrorResponseErrorDetails
 
 
 class ErrorResponseError(UniversalBaseModel):
@@ -15,6 +16,13 @@ class ErrorResponseError(UniversalBaseModel):
     message: str = pydantic.Field()
     """
     Human-readable description of the error.
+    """
+
+    details: typing.Optional[ErrorResponseErrorDetails] = pydantic.Field(default=None)
+    """
+    Optional structured details. Present on 400 validation
+    failures (list of Zod issues) and on errors that carry
+    additional diagnostic context.
     """
 
     if IS_PYDANTIC_V2:

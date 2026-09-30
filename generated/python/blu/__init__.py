@@ -6,7 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import BluEvent, ErrorResponse, ErrorResponseError, IngestResponse
+    from .types import BluEvent, ErrorResponse, ErrorResponseError, ErrorResponseErrorDetails, IngestResponse
     from . import ingestion
     from ._default_clients import DefaultAioHttpClient, DefaultAsyncHttpxClient
     from .client import AsyncBluApi, BluApi
@@ -20,6 +20,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DefaultAsyncHttpxClient": "._default_clients",
     "ErrorResponse": ".types",
     "ErrorResponseError": ".types",
+    "ErrorResponseErrorDetails": ".types",
     "IngestResponse": ".types",
     "ingestion": ".ingestion",
 }
@@ -55,6 +56,7 @@ __all__ = [
     "DefaultAsyncHttpxClient",
     "ErrorResponse",
     "ErrorResponseError",
+    "ErrorResponseErrorDetails",
     "IngestResponse",
     "ingestion",
 ]

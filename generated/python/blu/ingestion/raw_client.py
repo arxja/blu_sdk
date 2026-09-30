@@ -43,7 +43,7 @@ class RawIngestionClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            "ingest",
+            "api/ingest",
             method="POST",
             json={
                 "events": convert_and_respect_annotation_metadata(
@@ -96,7 +96,7 @@ class AsyncRawIngestionClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "ingest",
+            "api/ingest",
             method="POST",
             json={
                 "events": convert_and_respect_annotation_metadata(

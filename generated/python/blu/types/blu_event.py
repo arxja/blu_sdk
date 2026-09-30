@@ -58,17 +58,20 @@ class BluEvent(UniversalBaseModel):
 
     timestamp: dt.datetime = pydantic.Field()
     """
-    ISO 8601 timestamp describing when the event occurred.
+    ISO 8601 timestamp. Must be within 30 days in the past
+    and at most 5 minutes in the future (clock skew tolerance).
     """
 
     properties: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Event-specific properties supplied by the customer application.
+    Combined with `context`, must not exceed 32 KB per event.
     """
 
     context: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Platform or environment context supplied by the SDK.
+    Combined with `properties`, must not exceed 32 KB per event.
     """
 
     if IS_PYDANTIC_V2:

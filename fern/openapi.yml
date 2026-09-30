@@ -152,7 +152,6 @@ components:
         timestamp:
           type: string
           format: date-time
-          # Bounds are enforced by the server. Document them here as prose:
           description: |
             ISO 8601 timestamp. Must be within 30 days in the past
             and at most 5 minutes in the future (clock skew tolerance).
@@ -169,7 +168,21 @@ components:
             Combined with `properties`, must not exceed 32 KB per event.
           additionalProperties: true
 
-        IngestResponse:
+    IngestRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - events
+      properties:
+        events:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: Batch of normalized Blu events. The entire batch is accepted or rejected as a unit in v1.
+          items:
+            $ref: "#/components/schemas/BluEvent"
+
+    IngestResponse:
       type: object
       additionalProperties: false
       required:
@@ -184,19 +197,6 @@ components:
           type: integer
           minimum: 0
           description: Number of events in the batch that were already persisted (deduplicated by tenantId + eventId).
-
-    IngestResponse:
-      type: object
-      additionalProperties: false
-      duplicates:
-        
-      required:
-        - accepted
-      properties:
-        accepted:
-          type: integer
-          minimum: 0
-          description: Number of events accepted and persisted from this request.
 
     ErrorResponse:
       type: object
