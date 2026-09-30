@@ -2,14 +2,14 @@
   "name": "@blu/sdk-react",
   "version": "0.1.0",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "scripts": {
@@ -31,5 +31,8 @@
     "react": "^18.3.1",
     "tsup": "^8.2.0",
     "typescript": "^5.5.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
