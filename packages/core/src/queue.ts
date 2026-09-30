@@ -1,3 +1,4 @@
+import { TransportError } from "./errors";
 import type { BluEvent, TransportAdapter } from "./types";
 
 export class EventQueue {
@@ -68,13 +69,25 @@ export class EventQueue {
   private async processBatch(batch: BluEvent[], attempt: number): Promise<void> {
     try {
       await this.transport.sendBatch(batch);
-    } catch {
+    } catch (error) {
+      const retryable = error instanceof TransportError ? error.retryable : true;
+
+      if (!retryable) {
+        // Permanent failure — the request will never succeed.
+        // Drop the batch to avoid an infinite retry loop.
+        console.warn(
+          "[Blu SDK] Dropping batch after permanent error:",
+          error instanceof Error ? error.message : error,
+        );
+        return;
+      }
+
       if (attempt < this.maxRetries) {
-        const backoffMs = 2 ** attempt * 1000; // Exponential backoff: 1s, 2s, 4s
+        const backoffMs = 2 ** attempt * 1000;
         await new Promise((resolve) => setTimeout(resolve, backoffMs));
         await this.processBatch(batch, attempt + 1);
       } else {
-        // Fallback: Re-queue at the front to prevent data loss on total failure.
+        // Retries exhausted — re-queue at the front to prevent data loss.
         this.queue = [...batch, ...this.queue];
       }
     }
