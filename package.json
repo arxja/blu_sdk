@@ -9,6 +9,7 @@
     "type-check": "turbo run type-check",
     "format": "biome format --write .",
     "test": "bun test",
+    "py:test": "PYTHONPATH=generated py scripts/python-sdk-smoke.py",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
