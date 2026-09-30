@@ -66,15 +66,11 @@ export class EventQueue {
     await this.flushPromise;
   }
 
-  private async processBatch(
-    batch: BluEvent[],
-    attempt: number,
-  ): Promise<void> {
+  private async processBatch(batch: BluEvent[], attempt: number): Promise<void> {
     try {
       await this.transport.sendBatch(batch);
     } catch (error) {
-      const retryable =
-        error instanceof TransportError ? error.retryable : true;
+      const retryable = error instanceof TransportError ? error.retryable : true;
 
       if (!retryable) {
         // Permanent failure — the request will never succeed.
