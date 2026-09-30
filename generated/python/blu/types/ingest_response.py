@@ -12,6 +12,11 @@ class IngestResponse(UniversalBaseModel):
     Number of events accepted and persisted from this request.
     """
 
+    duplicates: int = pydantic.Field()
+    """
+    Number of events in the batch that were already persisted (deduplicated by tenantId + eventId).
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
