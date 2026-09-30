@@ -8,8 +8,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "scripts": {
@@ -26,5 +26,8 @@
     "@types/node": "^20.19.43",
     "tsup": "^8.2.0",
     "typescript": "^5.5.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
